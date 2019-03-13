@@ -1,0 +1,155 @@
+
+
+
+<html><head>
+<meta name="format-detection" content="telephone=no">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"href="http://nishikiout.ml/style.css">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@nkiib" />
+<meta name="twitter:title" content="TlooksSosu 素数表生成" />
+<meta name="twitter:description" content="素数表を生成します。" />
+<meta name="twitter:image" content="http://nishikiout.ml/tlooks-icon.jpg">
+<meta name="”description”" content="素数表生成計算機">
+<meta name="keywords" content="Tlooks,NKIIB,nkiib,Nishiki,錦のソフトウェア情報局,素数計算機,素数表">
+<meta name="author" content="nishiki">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="Sat, 31 Jan 2018 GMT">
+
+		<title>素数検索ツール TlooksSosu</title>
+		<script language="JavaScript">
+			<!--
+			
+			function Calloc(lSize)
+			{
+				this.length=lSize;
+				for (var i=0;i<lSize;i++) this[i]=0;
+			}
+			
+			function Prime(lMinPrime,lMaxPrime)
+			{
+				var dtStart=new Date();
+				if (lMaxPrime<2) return false;
+				var lBase=3;
+				for (var lSize=1;(lBase+lSize*2-2)*(lBase+lSize*2-2)<lMaxPrime;lSize<<=1) ;
+					
+				var plTable=new Calloc(lSize);
+					
+                    
+				document.write("結果<P>"); 
+                
+				var lPrimeDisp=0,lPrimePi=1;
+				if (2>=lMinPrime)
+				{
+					document.writeln(2);
+					lPrimeDisp++;
+				}
+				var lIndex=0;
+				while (lBase+(lIndex<<1)<=lMaxPrime)
+				{
+					var lPrime=plTable[lIndex];
+					if (lPrime<=0)
+					{	
+						var l=lBase+(lIndex<<1);
+						lPrimePi++;
+						if (l>=lMinPrime)
+						{
+							document.writeln(l);
+							lPrimeDisp++;
+						}
+						if (lBase==3) plTable[lIndex]=lPrime=l;
+					
+					}
+					if (lPrime)
+					{	
+						for (;;)
+						{	
+							lPrime=plTable[lIndex];
+							plTable[lIndex]=0; 
+							var lOffset;
+							if (lPrime>0) lOffset=lPrime;
+							else
+							{	
+								lPrime=-lPrime;
+								lOffset=lBase+(lIndex<<1)+lPrime;
+								lOffset-=(lOffset%lPrime);
+								if (!(lOffset&1)) lOffset+=lPrime;
+								lOffset=((lOffset-lBase-(lIndex<<1))>>1);
+							}
+							var lTable=1; 
+							for (;lOffset<=lSize;lOffset+=lPrime)
+							{
+								var lIndexNew=((lIndex+lOffset)&(lSize-1));
+								lTable=plTable[lIndexNew];
+								if (lTable>0) continue; 
+								plTable[lIndexNew]=lPrime; 
+								break;
+							}
+							if (lTable<0)
+							{
+								plTable[lIndex]=lTable; 
+								continue; 
+							}
+							if (lTable) plTable[lIndex]=-lPrime; 
+							break;
+						}
+					}
+					if (++lIndex==lSize) lIndex=0,lBase+=(lSize<<1);
+				}
+				var dtEnd=new Date();
+				
+                
+			
+                
+                
+				document.write("<br><hr>再度計算する場合、このページを再読み込みするとすることができます。<P>"); 
+				
+				document.close();
+				return false; // Submitしない
+			}
+			//-->
+		</script>
+  
+    
+	</head>
+	
+       <body>
+		<h1>
+			素数検索ツール TlooksSosu
+		</h1>
+                
+		<b>下の入力欄に数値を入力してみてください。一つの数値を確かめたい場合、一つのフォームを数値以外の物を記入してください。</b></p><p>
+		</p><form onsubmit="return Prime(parseInt(minprime.value),parseInt(maxprime.value))">
+			<input type="text" name="minprime" value="2">〜
+			<input type="text" name="maxprime" value="100">の素数表を生成します。
+			<input type="submit" value=" 生成 ">
+		</form>
+		<hr>
+		<script language="JavaScript">
+			<!--
+			document.forms[0].minprime.select();
+			document.forms[0].maxprime.select();
+			document.forms[0].maxprime.focus();
+			//--><B>どうやらこのブラウザはJavaScriptには対応していないようです。推奨環境:Safari6以降 Chrome51以降 もしくは、お使いのブラウザのJavaScriptを許可してください。</B><P>
+		</script>
+		
+        <p style="background-color: #999">
+        
+                <small style="background-color: #999">
+        バグ報告等は<a href="https://twitter.com/nkiib"><button>Twitter@nkiib</button></a>まで
+        
+        </small>
+        
+        
+        <br>
+        </p>
+<small><small>©2017-2018 Tlooks ©︎2017-2018 NKIIB
+            <br> TlooksSosu2.0(2018-12-7-0)</small></small>
+            
+            <p><small><small><small>Powered by Nishikiout
+        
+        </p></small></small></small>
+</body></html>
